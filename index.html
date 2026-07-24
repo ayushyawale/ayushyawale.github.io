@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Yawale — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F3F5;
+    --paper-line:#20335c1a;
+    --ink:#161B22;
+    --ink-soft:#4A5568;
+    --blue:#2954E5;
+    --blue-soft:#2954E512;
+    --amber:#F0A202;
+    --line:#C7D0DC;
+    --white:#FFFFFF;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--blue);
+  }
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(242,243,245,0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .nav-mark{font-family:'Space Grotesk'; font-weight:700; font-size:17px;}
+  .nav-mark span{color:var(--blue);}
+  .nav-links{display:flex; gap:28px; list-style:none;}
+  .nav-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; text-transform:uppercase; letter-spacing:0.06em;
+    text-decoration:none; color:var(--ink-soft);
+    position:relative; padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; height:1px; width:0;
+    background:var(--blue); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a:hover{color:var(--ink);}
+
+  /* HERO */
+  header.hero{
+    padding:110px 0 90px;
+    position:relative;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{display:grid; grid-template-columns:1fr auto; gap:40px; align-items:start;}
+  .eyebrow{
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow .dot{width:7px; height:7px; background:var(--blue); border-radius:50%;}
+  h1.title{
+    font-size:clamp(38px, 6vw, 64px);
+    line-height:1.05;
+    max-width:780px;
+  }
+  h1.title em{
+    font-style:normal; color:var(--blue);
+    position:relative;
+  }
+  .hero-sub{
+    max-width:520px; margin-top:22px; font-size:17px; color:var(--ink-soft);
+  }
+  .schematic-box{
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:18px 20px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    min-width:220px;
+    position:relative;
+  }
+  .schematic-box::before{
+    content:"FIG. 01"; position:absolute; top:-9px; left:14px;
+    background:var(--paper); padding:0 6px; font-size:10px; color:var(--blue);
+    letter-spacing:0.08em;
+  }
+  .schematic-box dl{display:grid; grid-template-columns:auto 1fr; gap:6px 12px; margin-top:6px;}
+  .schematic-box dt{color:var(--ink);}
+  .schematic-box dd{text-align:right;}
+  .hero-links{display:flex; gap:16px; margin-top:32px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; font-family:'JetBrains Mono', monospace; font-size:12px;
+    text-transform:uppercase; letter-spacing:0.06em; text-decoration:none;
+    border:1px solid var(--ink); color:var(--ink); transition:all .2s ease;
+  }
+  .btn.primary{background:var(--ink); color:var(--white);}
+  .btn.primary:hover{background:var(--blue); border-color:var(--blue);}
+  .btn:not(.primary):hover{background:var(--ink); color:var(--white);}
+
+  section{padding:80px 0; border-bottom:1px solid var(--line);}
+  .section-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:44px; flex-wrap:wrap; gap:10px;}
+  .section-head h2{font-size:30px;}
+  .section-head .idx{font-family:'JetBrains Mono'; font-size:12px; color:var(--ink-soft);}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px;}
+  .about-grid p{color:var(--ink-soft); font-size:16px; margin-bottom:16px;}
+  .about-grid p strong{color:var(--ink); font-weight:600;}
+  .stack-panel{border:1px solid var(--line); background:var(--white); padding:24px;}
+  .stack-panel .label{margin-bottom:14px; display:block;}
+  .stack-row{display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px dashed var(--line); font-size:13px;}
+  .stack-row:last-child{border-bottom:none;}
+  .stack-row span:first-child{color:var(--ink-soft);}
+  .stack-row span:last-child{font-family:'JetBrains Mono'; font-size:12px;}
+
+  /* PROJECTS */
+  .project{
+    border:1px solid var(--line); background:var(--white);
+    margin-bottom:28px; position:relative;
+  }
+  .project-top{padding:28px 28px 0;}
+  .project-tag{
+    font-family:'JetBrains Mono'; font-size:11px; color:var(--blue);
+    text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .project h3{font-size:24px; margin:8px 0 12px;}
+  .project .desc{color:var(--ink-soft); font-size:15px; max-width:640px;}
+  .process-strip{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line); margin-top:24px;
+  }
+  .process-cell{
+    padding:18px 24px; border-left:1px solid var(--line);
+  }
+  .process-cell:first-child{border-left:none;}
+  .process-cell .k{font-family:'JetBrains Mono'; font-size:10px; text-transform:uppercase; color:var(--ink-soft); letter-spacing:0.06em; display:block; margin-bottom:6px;}
+  .process-cell .v{font-size:13.5px;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; padding:20px 28px 28px;}
+  .chip{
+    font-family:'JetBrains Mono'; font-size:11px; padding:5px 10px;
+    border:1px solid var(--line); color:var(--ink-soft); background:var(--paper);
+  }
+
+  /* EXPERIENCE / EDUCATION */
+  .timeline-item{
+    display:grid; grid-template-columns:150px 1fr; gap:24px; padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .timeline-item:first-child{padding-top:0;}
+  .timeline-item:last-child{border-bottom:none;}
+  .timeline-item .when{font-family:'JetBrains Mono'; font-size:12px; color:var(--blue);}
+  .timeline-item h4{font-size:17px; margin-bottom:4px;}
+  .timeline-item .org{color:var(--ink-soft); font-size:13.5px; margin-bottom:10px;}
+  .timeline-item ul{padding-left:18px; color:var(--ink-soft); font-size:14px;}
+  .timeline-item li{margin-bottom:4px;}
+
+  /* CERTS */
+  .cert-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .cert{border:1px solid var(--line); background:var(--white); padding:20px;}
+  .cert .label{margin-bottom:10px;}
+  .cert h4{font-size:15px; margin-bottom:4px;}
+  .cert p{font-size:12.5px; color:var(--ink-soft);}
+
+  /* CONTACT */
+  footer{padding:70px 0 50px;}
+  .contact-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:end;}
+  footer h2{font-size:34px; max-width:480px;}
+  .contact-links{display:flex; flex-direction:column; gap:12px;}
+  .contact-links a{
+    display:flex; justify-content:space-between; text-decoration:none;
+    padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;
+  }
+  .contact-links a:hover{color:var(--blue);}
+  .contact-links .arrow{font-family:'JetBrains Mono';}
+  .foot-note{margin-top:50px; font-family:'JetBrains Mono'; font-size:11px; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  @media (max-width:820px){
+    .hero-grid{grid-template-columns:1fr;}
+    .schematic-box{width:100%;}
+    .about-grid{grid-template-columns:1fr;}
+    .process-strip{grid-template-columns:1fr;}
+    .process-cell{border-left:none; border-top:1px solid var(--line);}
+    .process-cell:first-child{border-top:none;}
+    .cert-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .timeline-item{grid-template-columns:1fr; gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-mark">AYUSH<span>.</span>YAWALE</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certs">Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span><span class="label">Building at the code / design boundary</span></div>
+      <h1 class="title">I design interfaces, then I build the thing that makes them real — <em>end to end.</em></h1>
+      <p class="hero-sub">B.Tech Computer Science student and full-stack developer moving into UI/UX and product design. I bring a working knowledge of what's technically feasible into every wireframe.</p>
+      <div class="hero-links">
+        <a class="btn primary" href="mailto:2303051051038@paruluniversity.ac.in">Get in touch</a>
+        <a class="btn" href="https://github.com/ayushyawale" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/ayushyawale" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="schematic-box">
+      <dl>
+        <dt>Based</dt><dd>Vadodara, IN</dd>
+        <dt>Studying</dt><dd>B.Tech CSE</dd>
+        <dt>Grad. year</dt><dd>2027</dd>
+        <dt>Focus</dt><dd>UI/UX + Frontend</dd>
+        <dt>Tools</dt><dd>Figma, React</dd>
+        <dt>Status</dt><dd>Open to intern roles</dd>
+      </dl>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <span class="label">01 / About</span>
+      <h2 style="margin:16px 0 22px;">A developer's eye, applied to interfaces.</h2>
+      <p>I'm a Computer Science undergraduate at Parul University with <strong>hands-on full-stack experience</strong> — React.js, Node.js, Express.js, and MongoDB — built across two internships and three shipped projects. That background means when I design a screen, I already know what it costs to build it.</p>
+      <p>I'm now formalizing that instinct into an actual UX process: user flows, wireframes, and prototypes in Figma, backed by usability thinking rather than guesswork. I'm also folding Gen-AI tools into that workflow — for rapid ideation, layout variations, and speeding up early-stage prototyping.</p>
+      <p>What I'm looking for: a UI/UX internship where the interface still has to survive contact with real engineering constraints — which is exactly the kind of design work I'm built for.</p>
+    </div>
+    <div class="stack-panel">
+      <span class="label">Current toolkit</span>
+      <div class="stack-row"><span>Design</span><span>Figma, Adobe XD</span></div>
+      <div class="stack-row"><span>Frontend</span><span>React.js, HTML/CSS, JS</span></div>
+      <div class="stack-row"><span>Backend</span><span>Node.js, Express.js</span></div>
+      <div class="stack-row"><span>Data</span><span>MongoDB, MySQL</span></div>
+      <div class="stack-row"><span>AI-assisted</span><span>Gen-AI prototyping</span></div>
+      <div class="stack-row"><span>Version control</span><span>Git, GitHub</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <span class="idx mono">02 / Work</span>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <span class="project-tag">AI · Product Design</span>
+        <h3>AgroAI — Sustainable Farming Platform</h3>
+        <p class="desc">An AI-powered platform that helps farmers monitor crop health in real time. I designed the dashboard layout around one constraint: the end users are not technical, so the interface had to translate IoT sensor data and ML predictions into something a non-technical farmer could act on at a glance.</p>
+      </div>
+      <div class="process-strip">
+        <div class="process-cell"><span class="k">Problem</span><span class="v">Raw sensor + ML output is unreadable to a non-technical user.</span></div>
+        <div class="process-cell"><span class="k">Approach</span><span class="v">Simplified dashboard hierarchy: status → alert → recommended action.</span></div>
+        <div class="process-cell"><span class="k">Build</span><span class="v">React.js frontend, Flask + TensorFlow/OpenCV backend, MongoDB.</span></div>
+      </div>
+      <div class="chips">
+        <span class="chip">React.js</span><span class="chip">Flask</span><span class="chip">TensorFlow</span><span class="chip">OpenCV</span><span class="chip">IoT</span><span class="chip">MongoDB</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <span class="project-tag">Web App · Booking Flow</span>
+        <h3>ARIANO — Domestic Flight Booking System</h3>
+        <p class="desc">A full-stack flight booking system where the core UX challenge was the booking flow itself — search, seat selection, and role-based access — without adding friction for either passengers or admin users.</p>
+      </div>
+      <div class="process-strip">
+        <div class="process-cell"><span class="k">Problem</span><span class="v">One interface, two very different user roles (booker vs. admin).</span></div>
+        <div class="process-cell"><span class="k">Approach</span><span class="v">Role-based access control shaping what each user sees and can do.</span></div>
+        <div class="process-cell"><span class="k">Build</span><span class="v">React.js, Node.js, Express.js, MySQL, RESTful APIs.</span></div>
+      </div>
+      <div class="chips">
+        <span class="chip">React.js</span><span class="chip">Node.js</span><span class="chip">MySQL</span><span class="chip">RBAC</span><span class="chip">REST APIs</span>
+      </div>
+    </div>
+
+    <div class="project" style="border-style:dashed;">
+      <div class="project-top">
+        <span class="project-tag" style="color:var(--amber);">Coming soon</span>
+        <h3>Next: a dedicated UX case study</h3>
+        <p class="desc">I'm currently building a full Figma case study — user research, wireframes, prototype, and rationale — to sit alongside these engineering-led projects. Check back soon, or ask me about it directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Experience &amp; education</h2>
+      <span class="idx mono">03 / Timeline</span>
+    </div>
+
+    <div class="timeline-item">
+      <span class="when">Jun 2026 – Sep 2026</span>
+      <div>
+        <h4>Web Developer Intern</h4>
+        <div class="org">Zidio Development</div>
+        <ul>
+          <li>Contributed to responsive web applications using HTML, CSS, JavaScript, and modern web technologies.</li>
+          <li>Collaborated on frontend and backend development following industry best practices.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="when">Jun 2026 – Jul 2026</span>
+      <div>
+        <h4>Full Stack Development Intern</h4>
+        <div class="org">Cognifyz IT Solutions Pvt. Ltd.</div>
+        <ul>
+          <li>Developed full-stack applications using React.js, Node.js, Express.js, and MongoDB.</li>
+          <li>Built RESTful APIs and collaborated on task-based software development.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="when">2023 – 2027</span>
+      <div>
+        <h4>B.Tech, Computer Science &amp; Engineering</h4>
+        <div class="org">Parul University, Vadodara — CGPA 6.92 / 10</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Certifications</h2>
+      <span class="idx mono">04 / Certs</span>
+    </div>
+    <div class="cert-grid">
+      <div class="cert">
+        <span class="label">AWS</span>
+        <h4>Cloud Foundations</h4>
+        <p>AWS Academy Certificate</p>
+      </div>
+      <div class="cert">
+        <span class="label">IBM</span>
+        <h4>AI Fundamentals</h4>
+        <p>IBM Certificate</p>
+      </div>
+      <div class="cert">
+        <span class="label">Cognifyz</span>
+        <h4>Full Stack Internship</h4>
+        <p>Completion Certificate, Jun–Jul 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <h2>Let's talk about a UI/UX internship.</h2>
+      <div class="contact-links">
+        <a href="mailto:2303051051038@paruluniversity.ac.in"><span>2303051051038@paruluniversity.ac.in</span><span class="arrow">↗</span></a>
+        <a href="tel:+919049012022"><span>+91 90490 12022</span><span class="arrow">↗</span></a>
+        <a href="https://www.linkedin.com/in/ayushyawale" target="_blank" rel="noopener"><span>linkedin.com/in/ayushyawale</span><span class="arrow">↗</span></a>
+        <a href="https://github.com/ayushyawale" target="_blank" rel="noopener"><span>github.com/ayushyawale</span><span class="arrow">↗</span></a>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>Vadodara, Gujarat, India</span>
+      <span>© 2026 Ayush Yawale</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
